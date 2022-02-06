@@ -1,0 +1,4 @@
+/katago
+*.bin.gz
+gtp.log
+.env

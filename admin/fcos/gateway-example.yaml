@@ -1,0 +1,51 @@
+variant: fcos
+version: 1.0.0
+passwd:
+  users:
+    - name: core
+      groups: [docker]
+      ssh_authorized_keys:
+        - ssh-rsa AAAA...
+storage:
+  directories:
+    - path: /mnt/stateful_partition/BUGOUT/reverse-proxy
+      overwrite: false
+    - path: /mnt/stateful_partition/BUGOUT/redis
+      overwrite: false
+systemd:
+  units:
+    - name: bugout.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=BUGOUT
+        After=docker.service
+        Wants=docker.service
+
+        [Service]
+        ExecStart=/usr/bin/sh /home/core/BUGOUT/admin/start-gateway-host.sh
+
+        [Install]
+        WantedBy=multi-user.target
+    - name: config-redis.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Configure kernel for redis
+
+        [Service]
+        ExecStart=/usr/bin/sh /home/core/BUGOUT/admin/config-redis.sh
+
+        [Install]
+        WantedBy=multi-user.target
+    - name: config-ulimit.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Configures ulimit (useful for reverse-proxy)
+
+        [Service]
+        ExecStart=ulimit -n 8192
+
+        [Install]
+        WantedBy=multi-user.target

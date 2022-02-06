@@ -1,0 +1,12 @@
+[Unit]
+Description=BUGOUT tinybrain
+
+[Service]
+Environment="TINYBRAIN_HOME=/path/to/git/BUGOUT/tinybrain"
+Environment="TINYBRAIN_BIN=/home/__YOURUSER__/.cargo/bin"
+ExecStart=/bin/bash /path/to/git/BUGOUT/tinybrain/start-tinybrain.sh
+Restart=always
+RuntimeMaxSec=3600
+
+[Install]
+WantedBy=multi-user.target

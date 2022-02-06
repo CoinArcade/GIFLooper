@@ -1,0 +1,11 @@
+[package]
+authors = ["Terkwood <38859656+Terkwood@users.noreply.github.com>"]
+edition = "2018"
+name = "color-model"
+version = "0.2.0"
+
+[dependencies]
+core-model = {git = "https://github.com/Terkwood/BUGOUT", rev = "20e6620"}
+lobby-model = {git = "https://github.com/Terkwood/BUGOUT", rev = "0dd79c5"}
+serde = "1.0.117"
+serde_derive = "1.0.117"
